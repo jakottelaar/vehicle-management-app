@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Vehicle {
+  id            String   @id @default(cuid())
+  make          String
+  model         String
+  year          Int      @default(0)
+  purchasePrice Decimal  @db.Decimal(10, 2)
+  purchaseDate  DateTime @db.Timestamp(6)
+  mileage       Int      @default(0)
+  vin           String?
+  image         String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  userId        String
+  Maintenance Maintenance[]
+}
+
+model Maintenance {
+  id          String   @id @default(cuid())
+  date        DateTime
+  description String
+  cost        Decimal  @db.Decimal(10, 2)
+  mileage     Int
+  vehicleId   String
+  vehicle     Vehicle  @relation(fields: [vehicleId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

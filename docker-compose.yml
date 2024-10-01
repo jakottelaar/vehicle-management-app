@@ -1,0 +1,29 @@
+services:
+  app:
+    env_file: .env
+    container_name: vehicle-mvp-app
+    image: node:20
+    build: .
+    ports:
+      - "3000:3000"
+    restart: on-failure
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    container_name: vehicle-mvp-db
+    env_file: .env
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DEV_POSTGRES_DB}
+      POSTGRES_USER: ${DEV_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${DEV_POSTGRES_PASSWORD}
+    ports:
+      - "6000:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
