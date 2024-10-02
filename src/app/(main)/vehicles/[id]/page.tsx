@@ -26,6 +26,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { VehicleDetailsInfoCard } from "@/components/vehicle-details-info-card";
 
 type Vehicle = {
   id: string;
@@ -109,22 +110,22 @@ const VehicleDetails = ({ params }: { params: { id: string } }) => {
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <VehicleInfoCard
+              <VehicleDetailsInfoCard
                 icon={<Gauge className="h-5 w-5" />}
                 title="Mileage"
                 value={`${vehicle.mileage} km`}
               />
-              <VehicleInfoCard
+              <VehicleDetailsInfoCard
                 icon={<DollarSign className="h-5 w-5" />}
                 title="Purchase Price"
                 value={`$${vehicle.purchasePrice}`}
               />
-              <VehicleInfoCard
+              <VehicleDetailsInfoCard
                 icon={<Calendar className="h-5 w-5" />}
                 title="Purchase Date"
                 value={new Date(vehicle.purchaseDate).toLocaleDateString()}
               />
-              <VehicleInfoCard
+              <VehicleDetailsInfoCard
                 icon={<Hash className="h-5 w-5" />}
                 title="VIN"
                 value={vehicle.vin}
@@ -257,25 +258,5 @@ const VehicleDetails = ({ params }: { params: { id: string } }) => {
     </ProtectedRoute>
   );
 };
-
-const VehicleInfoCard = ({
-  icon,
-  title,
-  value,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  value: string;
-}) => (
-  <Card className="bg-black bg-opacity-20 border-none backdrop-blur-3xl h-fit">
-    <CardContent className="flex items-center p-4">
-      <div className="mr-4 text-white">{icon}</div>
-      <div>
-        <h3 className="font-medium text-white">{title}</h3>
-        <p className="text-xl font-bold text-white">{value}</p>
-      </div>
-    </CardContent>
-  </Card>
-);
 
 export default VehicleDetails;
